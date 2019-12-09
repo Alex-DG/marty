@@ -10,9 +10,12 @@
     "postinstall": "npx jetify"
   },
   "dependencies": {
+    "@types/socket.io-client": "^1.4.32",
     "react": "16.9.0",
     "react-native": "0.61.4",
-    "react-native-ble-plx": "^1.1.0"
+    "react-native-ble-plx": "^1.1.0",
+    "react-native-tcp": "^3.3.2",
+    "socket.io-client": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

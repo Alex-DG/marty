@@ -20,6 +20,10 @@ import {
   Button,
 } from 'react-native';
 
+import io from 'socket.io-client';
+
+// import test from 'react-native-tcp'
+
 import {
   Device,
   BleError,
@@ -51,8 +55,43 @@ const App = () => {
   const usingHermes =
     typeof HermesInternal === 'object' && HermesInternal !== null;
 
+  const martyWifi = () => {
+    //@ts-ignore
+    if ('WebSocket' in window) {
+      console.log('WebSocket is supported!');
+
+      // Open a web socket
+      //@ts-ignore
+      var ws = new WebSocket('ws://192.168.1.64:8008');
+
+      ws.onopen = function() {
+        // Web Socket is connected, send data using send()
+        ws.send('Message to send');
+        console.log('Message is sent...');
+      };
+      ws.onmessage = function(evt: any) {
+        var received_msg = evt.data;
+        console.log('Message is received...', {received_msg});
+      };
+      ws.onerror = function(evt: any) {
+        var received_msg = evt;
+        console.log('error', {received_msg});
+      };
+      ws.onclose = function() {
+        // websocket is closed.
+        console.log('Connection is closed...');
+      };
+    } else {
+      // The browser doesn't support WebSocket
+      console.log('WebSocket NOT supported!');
+    }
+  };
+
   useEffect(() => {
     console.log('useEffect');
+
+    martyWifi();
+
     manager = new BleManager();
 
     onStateChangeListener = manager.onStateChange(state => {
