@@ -7,15 +7,19 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "postinstall": "npx jetify"
+    "postinstall": "npx jetify && rn-nodeify --install stream,process,util --hack"
   },
   "dependencies": {
     "@types/socket.io-client": "^1.4.32",
     "react": "16.9.0",
     "react-native": "0.61.4",
+    "react-native-base64": "^0.0.2",
     "react-native-ble-plx": "^1.1.0",
     "react-native-tcp": "^3.3.2",
-    "socket.io-client": "^2.3.0"
+    "readable-stream": "^1.0.33",
+    "rn-nodeify": "^10.2.0",
+    "socket.io-client": "^2.3.0",
+    "stream-browserify": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -41,5 +45,23 @@
       "json",
       "node"
     ]
+  },
+  "browser": {
+    "net": "react-native-tcp",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
+  },
+  "react-native": {
+    "net": "react-native-tcp",
+    "_stream_transform": "readable-stream/transform",
+    "_stream_readable": "readable-stream/readable",
+    "_stream_writable": "readable-stream/writable",
+    "_stream_duplex": "readable-stream/duplex",
+    "_stream_passthrough": "readable-stream/passthrough",
+    "stream": "stream-browserify"
   }
 }

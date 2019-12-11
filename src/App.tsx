@@ -21,7 +21,8 @@ import {
 } from 'react-native';
 
 import io from 'socket.io-client';
-
+//@ts-ignore
+import SocketIOClient from 'socket.io-client/dist/socket.io';
 // import test from 'react-native-tcp'
 
 import {
@@ -36,6 +37,12 @@ import Header from './components/Header';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 import {connect, disconnect} from './services/marty';
+
+//@ts-ignore
+import base64 from 'react-native-base64';
+
+//@ts-ignore
+import net from 'react-native-tcp';
 
 const App = () => {
   let manager: BleManager;
@@ -55,36 +62,82 @@ const App = () => {
   const usingHermes =
     typeof HermesInternal === 'object' && HermesInternal !== null;
 
-  const martyWifi = () => {
+  const martyWifi = async () => {
+    console.log('martyWifi!');
+
+    // WORKING - https://github.com/aprock/react-native-tcp/
+    // var client = new net.Socket();
+    // client.connect(8008, '192.168.1.64', () => {
+    //   console.log('>> Connected: 192.168.1.64:8008');
+    //   client.write('Hello Marty!');
+    // });
+
+    // client.on('data', (data: any) => {
+    //   console.log('>> Received: ' + data);
+    //   //client.destroy(); // kill client after server's response
+    // });
+
+    // client.on('connect_error', (err: any) => {
+    //   console.log('>> error123', {err});
+    // });
+
+    // client.on('error', (err: any) => {
+    //   console.log('>> error!!!', {err});
+    // });
+
+    // client.on('close', () => {
+    //   console.log('>> Connection closed');
+    // });
     //@ts-ignore
-    if ('WebSocket' in window) {
-      console.log('WebSocket is supported!');
+    // if ('WebSocket' in window) {
+    //   console.log('WebSocket is supported! ! !');
 
-      // Open a web socket
-      //@ts-ignore
-      var ws = new WebSocket('ws://192.168.1.64:8008');
+    //   // CLIENT IO // opt: transports: ['websocket'],
+    //   // const socket = await SocketIOClient('ws://192.168.1.64:8008/');
+    //   // socket.on('connect', () => {
+    //   //   console.log('connected');
+    //   // });
 
-      ws.onopen = function() {
-        // Web Socket is connected, send data using send()
-        ws.send('Message to send');
-        console.log('Message is sent...');
-      };
-      ws.onmessage = function(evt: any) {
-        var received_msg = evt.data;
-        console.log('Message is received...', {received_msg});
-      };
-      ws.onerror = function(evt: any) {
-        var received_msg = evt;
-        console.log('error', {received_msg});
-      };
-      ws.onclose = function() {
-        // websocket is closed.
-        console.log('Connection is closed...');
-      };
-    } else {
-      // The browser doesn't support WebSocket
-      console.log('WebSocket NOT supported!');
-    }
+    // var socket = io('ws://192.168.1.64:8008/');
+    // socket.open();
+    // socket.connect();
+    // socket.send('Alex');
+    // socket.close();
+
+    //   // WEB SOCKET
+    //   // var ws = new WebSocket('ws://192.168.1.64:8008');
+    //   // // var ws = new WebSocket('wss://192.168.1.64:8008/');
+    //   // // var ws = new WebSocket('wss://echo.websocket.org/');
+
+    //   // ws.onopen = () => {
+    //   //   // connection opened
+    //   //   console.log('on open!');
+    //   //   const data = window.btoa('something\r\n');
+    //   //   // ws.send(base64.encode('Some string to encode to base64')); // send a message
+    //   // };
+    //   // ws.onmessage = e => {
+    //   //   // a message was received
+    //   //   console.log('onmessage ', e.data);
+    //   // };
+    //   // ws.onerror = e => {
+    //   //   // an error occurred
+    //   //   //@ts-ignore
+    //   //   console.log('onerror ', {
+    //   //     event: e,
+    //   //     message: e.message,
+    //   //   });
+    //   // };
+    //   // ws.onclose = e => {
+    //   //   // connection closed
+    //   //   console.log('onclose ', {
+    //   //     code: e.code,
+    //   //     reason: e.reason,
+    //   //   });
+    //   // };
+    // } else {
+    //   // The browser doesn't support WebSocket
+    //   console.log('WebSocket NOT supported!');
+    // }
   };
 
   useEffect(() => {
