@@ -12,7 +12,7 @@
   "dependencies": {
     "@types/socket.io-client": "^1.4.32",
     "react": "16.9.0",
-    "react-native": "0.61.4",
+    "react-native": "0.62.3",
     "react-native-base64": "^0.0.2",
     "react-native-ble-plx": "^1.1.0",
     "react-native-tcp": "^3.3.2",
